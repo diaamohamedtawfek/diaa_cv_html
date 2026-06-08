@@ -6,7 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const handlePrint = (e) => {
         e.preventDefault();
-        window.print();
+        
+        const element = document.querySelector('.resume-container');
+        const isDark = body.classList.contains('dark-theme');
+        
+        // Force light theme for PDF generation to look professional
+        if (isDark) {
+            body.classList.remove('dark-theme');
+            body.classList.add('light-theme');
+        }
+        
+        const opt = {
+            margin:       [10, 10, 10, 10],
+            filename:     'Diaa_Mohamed_CV.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true, logging: false },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        
+        html2pdf().set(opt).from(element).save().then(() => {
+            if (isDark) {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            }
+        });
     };
 
     if (printBtn) {
