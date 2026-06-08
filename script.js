@@ -1,7 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('theme-toggle');
     const printBtn = document.getElementById('print-btn');
+    const printBtnBottom = document.getElementById('print-btn-bottom');
     const body = document.body;
+
+    const handlePrint = (e) => {
+        e.preventDefault();
+        window.print();
+    };
+
+    if (printBtn) {
+        printBtn.addEventListener('click', handlePrint);
+    }
+    if (printBtnBottom) {
+        printBtnBottom.addEventListener('click', handlePrint);
+    }
 
     // Load saved theme from localStorage
     const savedTheme = localStorage.getItem('theme');
